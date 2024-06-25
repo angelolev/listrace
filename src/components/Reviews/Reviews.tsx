@@ -57,7 +57,7 @@ export default function Reviews() {
     ],
   };
   return (
-    <Slider {...settings}>
+    <Slider {...settings} className="mt-[36px]">
       {data.map((item: IReview) => (
         <Review key={item.id} {...item} />
       ))}

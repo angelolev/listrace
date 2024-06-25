@@ -1,23 +1,12 @@
-"use client";
-import { useEffect, useState } from "react";
+import { getData } from "@/utils";
 import ActivityCard from "../ActivityCard/ActivityCard";
 import { IActivityCard } from "@/types";
 
-export default function Activities() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("/api/explore");
-      const jsonData = await response.json();
-      setData(jsonData);
-    };
-
-    fetchData();
-  }, []);
+export default async function Activities() {
+  const data = await getData("explore");
 
   return (
-    <div className="activities pt-[78px] grid grid-cols-1 gap-8">
+    <div className="activities pt-[78px] grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       {data.map((item: IActivityCard) => (
         <ActivityCard key={item.id} {...item} />
       ))}

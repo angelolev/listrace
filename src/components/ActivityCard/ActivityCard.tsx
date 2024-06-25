@@ -14,8 +14,8 @@ export default function ActivityCard({
   status,
 }: IActivityCard) {
   return (
-    <div className="activity-card border-[#edeff1] border-[1px] text-left rounded-[3px]">
-      <div className="image relative h-[254px]">
+    <div className="activity-card border-[#edeff1] border-[1px] text-left rounded-[3px] hover:shadow-activity-card duration-300">
+      <div className="image relative h-[254px] contrast-[.6]">
         <Image alt="Activity image" src={image} fill />
       </div>
       <div className="content py-[25px] px-[15px]">
