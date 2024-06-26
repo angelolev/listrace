@@ -8,7 +8,7 @@ export default function Review({
   testimonial,
 }: IReview) {
   return (
-    <div className="review shadow-feature-card py-[50px] px-[30px] bg-white">
+    <div className="review shadow-feature-card py-[50px] px-[30px] bg-white max-w-[270px]">
       <div className="client flex gap-6 items-center">
         <div className="image">
           <Image alt="Client image" src={image} width={40} height={40} />

@@ -33,6 +33,7 @@ const config: Config = {
         "category-card": "0 0px 10px rgba(71, 71, 71, 0.2)",
         "feature-card": "0 0px 5px rgba(71, 71, 71, 0.2)",
         "activity-card": "0 10px 20px rgba(21, 19, 19, 0.2)",
+        nav: "0 2px 5px rgba(0, 0, 0, 0.2)",
       },
     },
   },

@@ -1,34 +1,42 @@
 "use client";
+import { validateEmail } from "@/utils";
 import { FormEvent, useState } from "react";
 
 export default function Newsletter() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [messageCssClass, setMessageCssClass] =
+    useState<string>("text-primary-500");
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setIsLoading(true);
-    setError(null);
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!validateEmail(email)) {
+      setMessage("Account invalid");
+      return;
+    }
 
     try {
-      const formData = new FormData(event.currentTarget);
-      const response = await fetch("/api/submit", {
+      const res = await fetch("/api/submit", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to submit the data. Please try again.");
+      if (res.ok) {
+        setMessage("Email sent successfully!");
+        setMessageCssClass("text-green");
+      } else {
+        const errorData = await res.json();
+        setMessage(`Failed to send email: ${errorData.error}`);
       }
-
-      const data = await response.json();
-    } catch (error) {
-      setError(error.message);
-      console.error(error);
-    } finally {
-      setIsLoading(false);
+    } catch (error: any) {
+      setMessage(`An error occurred: ${error.message}`);
     }
-  }
+    setEmail("");
+  };
 
   return (
     <div className="newsletter ">
@@ -41,21 +49,28 @@ export default function Newsletter() {
           to promote your Business.
         </p>
         <div>
-          {error && <div style={{ color: "red" }}>{error}</div>}
-          <form onSubmit={onSubmit}>
+          <form
+            className="flex flex-col items-center md:flex-row md:flex-wrap md:justify-center"
+            onSubmit={handleSubmit}
+            noValidate
+          >
             <input
               type="email"
               name="email"
-              className="text-[16px] border-[1px] border-white shadow-category-card pl-[30px] py-3 mb-6 mt-8 w-full"
+              className="text-[16px] border-[1px] border-white shadow-category-card pl-[30px] py-4 mb-6 mt-8 w-full md:w-3/5"
               placeholder="Enter your email here"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <button
               type="submit"
-              disabled={isLoading}
-              className="w-fit bg-primary-500 text-white py-4 px-6"
+              className="w-fit bg-primary-500 text-white py-4 px-6 md:h-[60px] md:mt-[7px]"
             >
-              {isLoading ? "Loading..." : "Create Account"}
+              Create Account
             </button>
+            {message && (
+              <p className={`${messageCssClass} mt-2 w-full`}>{message}</p>
+            )}
           </form>
         </div>
       </div>

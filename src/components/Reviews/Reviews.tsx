@@ -22,11 +22,13 @@ export default function Reviews() {
   }, []);
 
   let settings = {
+    className: "center",
     infinite: true,
     centerMode: true,
+    centerPadding: "60px",
     autoplay: true,
     slidesToShow: 5,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
     autoplaySpeed: 1500,
     responsive: [
       {

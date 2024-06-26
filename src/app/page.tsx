@@ -83,7 +83,7 @@ export default function Home() {
             <Activities />
           </div>
         </section>
-        <section className="reviews text-center pt-[117px] overflow-hidden">
+        <section className="reviews text-center pt-[117px]">
           <h2 className="heading-2">Clients Reviews</h2>
           <p className="paragraph md:text-[18px]">
             What our client say about us
