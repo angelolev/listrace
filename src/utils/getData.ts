@@ -1,7 +1,6 @@
 export default async function getData(path: string) {
   try {
-    const res = await fetch(`http://localhost:3000/api/${path}`);
-    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${path}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${path}`);
     console.log(`Fetching data from: ${process.env.NEXT_PUBLIC_API_URL}`);
 
     if (!res.ok) {
